@@ -5,22 +5,32 @@ import 'package:weather_forecast/view/utils/colors.dart';
 class SearchCityWidget extends StatelessWidget {
   final Function() onTap;
   final TextEditingController cityController;
-  const SearchCityWidget({super.key, required this.onTap, required this.cityController});
+  const SearchCityWidget(
+      {super.key, required this.onTap, required this.cityController});
   static HomeProvider homeProvider = HomeProvider();
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: TextFormField(
-          controller:cityController,
-          style: const TextStyle(color: tertiaryColor),
-          decoration: const InputDecoration(
-              prefixIcon: Icon(
-                Icons.location_on,
-                color: tertiaryColor,
-              ),
-              border: OutlineInputBorder(),
-              hintText: "Location"),
-          onTap: onTap),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+        child: TextFormField(
+            controller: cityController,
+            style: const TextStyle(color: tertiaryColor),
+            decoration: InputDecoration(
+                prefixIcon: const Icon(
+                  Icons.location_on,
+                  color: primaryColor,
+                ),
+                labelText: "Location",
+                enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: primaryColor, width: 2),
+                    borderRadius: BorderRadius.circular(16.0)),
+                border: OutlineInputBorder(
+                    borderSide: const BorderSide(color: primaryColor, width: 3),
+                    borderRadius: BorderRadius.circular(16.0)),
+                hintText: "Enter your location"),
+            onTap: onTap),
+      ),
     );
   }
 }

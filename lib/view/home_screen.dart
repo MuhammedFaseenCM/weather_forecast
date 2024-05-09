@@ -6,6 +6,7 @@ import 'package:weather_forecast/view/widgets/additional.dart';
 import 'package:weather_forecast/view/widgets/bottom_widget.dart';
 import 'package:weather_forecast/view/widgets/search_city.dart';
 import 'package:weather_forecast/view/widgets/top_widget.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -14,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   HomeProvider homeProvider = HomeProvider();
   Weather data = Weather();
   @override
@@ -57,13 +57,15 @@ class _HomeScreenState extends State<HomeScreen> {
             height: size.height,
             color: whiteColor,
             padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TopWidget(data: data),
-                kheight18,
-                BottomWidget(data: data)
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TopWidget(data: data),
+                  kheight18,
+                  BottomWidget(data: data)
+                ],
+              ),
             ),
           );
         },

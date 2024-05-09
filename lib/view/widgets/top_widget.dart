@@ -9,9 +9,7 @@ class TopWidget extends StatelessWidget {
   const TopWidget({super.key, required this.data});
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 0.6,
       decoration: BoxDecoration(
           color: whiteColor,
           borderRadius: BorderRadius.circular(20.0),
@@ -36,7 +34,7 @@ class TopWidget extends StatelessWidget {
                 color: tertiaryColor,
               ),
               Text(
-                data.cityName ?? "cityname",
+                data.cityName ?? "Enter a valid city",
                 style: const TextStyle(
                     color: tertiaryColor,
                     fontSize: 18.0,
@@ -60,7 +58,7 @@ class TopWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 0.0),
                 child: Text(
-                  data.temp.toString(),
+                  '${data.temp ?? 0.0}',
                   style: TextStyle(
                       fontSize: 80.0,
                       fontWeight: FontWeight.bold,
@@ -87,7 +85,7 @@ class TopWidget extends StatelessWidget {
                     color: tertiaryColor),
               ),
               Text(
-                "${data.feelsLike}°",
+                "${data.feelsLike ?? 0.0}°",
                 style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -96,7 +94,7 @@ class TopWidget extends StatelessWidget {
             ],
           ),
           Text(
-            data.condition ?? "Sunny",
+            data.condition ?? "",
             style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
@@ -118,15 +116,15 @@ class TopWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 WeatherItem(
-                    value: data.wind,
+                    value: data.wind ?? 0.0,
                     unit: "km/h",
                     imageUrl: "assets/icons/windspeed.png"),
                 WeatherItem(
-                    value: data.humidity,
+                    value: data.humidity ?? 0.0,
                     unit: "km/h",
                     imageUrl: "assets/icons/humidity.png"),
                 WeatherItem(
-                    value: data.pressure,
+                    value: data.pressure ?? 0.0,
                     unit: "km/h",
                     imageUrl: "assets/icons/clouds.png")
               ],

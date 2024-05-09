@@ -9,10 +9,7 @@ class BottomWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Container(
-      padding: const EdgeInsets.only(top: 10.0),
-      height: size.height * 0.2,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,11 +35,12 @@ class BottomWidget extends StatelessWidget {
           ),
           Container(
             height: 8.0,
-            //     padding: EdgeInsets.only(bottom: 20.0),
+            padding: const EdgeInsets.only(bottom: 20.0),
           ),
           SizedBox(
-            height: 110.0,
+            height: 120.0,
             child: ListView.builder(
+              shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               itemCount:
@@ -54,7 +52,11 @@ class BottomWidget extends StatelessWidget {
                     hourlyWeather: hourlyweather, time: hourTime);
               },
             ),
-          )
+          ),
+          Container(
+            height: 8.0,
+            padding: const EdgeInsets.only(bottom: 20.0),
+          ),
         ],
       ),
     );
