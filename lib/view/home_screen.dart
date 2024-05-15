@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_forecast/controller/home_provider.dart';
-import 'package:weather_forecast/model/weather_model.dart';
 import 'package:weather_forecast/view/utils/colors.dart';
 import 'package:weather_forecast/view/widgets/additional.dart';
 import 'package:weather_forecast/view/widgets/bottom_widget.dart';
@@ -15,12 +15,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeProvider homeProvider = HomeProvider();
-  Weather data = Weather();
   @override
   void initState() {
-    homeProvider.cityController.text = "calicut";
-    getData();
+    Provider.of<HomeProvider>(context, listen: false).cityController.text =
+        "calicut";
+    Provider.of<HomeProvider>(context, listen: false).getData();
     super.initState();
   }
 
@@ -31,8 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         actions: [
           SearchCityWidget(
-            onTap: () => getData(),
-            cityController: homeProvider.cityController,
+            onTap: Provider.of<HomeProvider>(context, listen: false).getData,
+            cityController: Provider.of<HomeProvider>(context, listen: false)
+                .cityController,
           )
         ],
         backgroundColor: whiteColor,
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: whiteColor,
       body: FutureBuilder(
-        future: getData(),
+        future: Provider.of<HomeProvider>(context, listen: false).getData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -52,33 +52,26 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
 
-          return Container(
-            width: size.width,
-            height: size.height,
-            color: whiteColor,
-            padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  TopWidget(data: data),
-                  kheight18,
-                  BottomWidget(data: data)
-                ],
+          return Consumer<HomeProvider>(builder: (context, weather, _) {
+            return Container(
+              width: size.width,
+              height: size.height,
+              color: whiteColor,
+              padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TopWidget(data: weather.data),
+                    kheight18,
+                    BottomWidget(data: weather.data)
+                  ],
+                ),
               ),
-            ),
-          );
+            );
+          });
         },
       ),
     );
-  }
-
-  Future<void> getData() async {
-    if (homeProvider.cityController.text.isNotEmpty) {
-      data =
-          await fetchWatherData(searchText: homeProvider.cityController.text);
-    } else {
-      data = await fetchWatherData(searchText: "calicut");
-    }
   }
 }
