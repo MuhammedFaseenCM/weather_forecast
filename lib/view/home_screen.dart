@@ -53,6 +53,11 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           return Consumer<HomeProvider>(builder: (context, weather, _) {
+            if (weather.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
             return Container(
               width: size.width,
               height: size.height,

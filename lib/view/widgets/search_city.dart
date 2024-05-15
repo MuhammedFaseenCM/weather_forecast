@@ -41,7 +41,7 @@ class SearchCityWidget extends StatelessWidget {
               hintText: "Enter your location"),
           onTap: Provider.of<HomeProvider>(context, listen: false).getData,
           onTapOutside: (_) =>
-              Provider.of<HomeProvider>(context, listen: false).getData,
+              Provider.of<HomeProvider>(context, listen: false).getData(),
         ),
       ),
     );
